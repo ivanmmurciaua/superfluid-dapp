@@ -17,24 +17,16 @@ async function createNewFlow(currentAccount, recipient, flowRate) {
 
   const signer = provider.getSigner();
 
-  console.log(signer)
-
   const chainId = await window.ethereum.request({ method: "eth_chainId" });
   const sf = await Framework.create({
     chainId: Number(chainId),
     provider: provider
   });
 
-  console.log(provider)
-
   const DAIxContract = await sf.loadSuperToken("fDAIx");
   const DAIx = DAIxContract.address;
-
-  console.log(DAIx)
   
   try {
-    console.log(recipient)
-    console.log(flowRate)
 
     const createFlowOperation = sf.cfaV1.createFlow({
       receiver: recipient,
@@ -45,7 +37,6 @@ async function createNewFlow(currentAccount, recipient, flowRate) {
     console.log("Creating your stream...");
 
     const result = await createFlowOperation.exec(signer);
-    console.log(result);
 
     console.log(
       `Congrats - you've just created a money stream!
@@ -107,8 +98,8 @@ export const CreateFlow = () => {
     const accounts = await ethereum.request({ method: "eth_accounts" });
     const chain = await window.ethereum.request({ method: "eth_chainId" });
     let chainId = chain;
-    console.log("chain ID:", chain);
-    console.log("global Chain Id:", chainId);
+    console.log("Chain ID:", chain);
+    console.log("Global Chain Id:", chainId);
     if (accounts.length !== 0) {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
@@ -203,10 +194,6 @@ export const CreateFlow = () => {
       </Form>
 
       <div className="description">
-        <p>
-          Go to the CreateFlow.js component and look at the <b>createFlow() </b>
-          function to see under the hood
-        </p>
         <div className="calculation">
           <p>Your flow will be equal to:</p>
           <p>
